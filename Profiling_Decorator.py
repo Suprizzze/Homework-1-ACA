@@ -1,22 +1,21 @@
 from datetime import datetime
 from time import sleep
+import logging
 
 
 def profile(func):
 
-    p_file = open("performance.log", "a+")
+    logging.basicConfig(format='%(message)s', level=0, filename='performance.log')
+    logger = logging.getLogger()
 
-    def wrapper(*args, **kwargs):
+    def timelogger(*args, **kwargs):
 
         start = datetime.now()
         res = func(*args, **kwargs)
         x = (datetime.now() - start)
-        text = str(datetime.now()) + " - " + str(func.__name__) + " - " + str(x)
-        p_file.write(text)
-        p_file.write("\n")
-        p_file.close()
+        logger.debug(f"{start} - {func.__name__} -  {x}")
         return res
-    return wrapper
+    return timelogger
 
 
 @profile
@@ -26,3 +25,16 @@ def foo(x):
 
 
 print(foo(2))
+
+
+@profile
+def fact(x):
+    sleep(1)
+    res = 1
+    for i in range(1, x):
+        res *= i
+    return res
+
+
+print(fact(10))
+
