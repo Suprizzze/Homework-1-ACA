@@ -1,19 +1,16 @@
 
 nums = [2, 5, 3, 7, 3, 8]
 target = 12
-if target == 0 and nums.count(0) < 2:
-    print(None)
-    quit()
 
-for i in range(len(nums)):
-    x = target - nums[i]
-    if x in nums:
-        nums[i] = "None"
-        print(nums.index(nums[i]), nums.index(x))
+d = []
+
+for index, num in enumerate(nums):
+    x = target - num
+    h = num
+    if x in nums and index != nums.index(x):
+        d.append([index, nums.index(x)])
         break
+if d:
+    print(*sorted(d[0]))
 else:
-    print(None)
-
-
-
-
+    print("None")
