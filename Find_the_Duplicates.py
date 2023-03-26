@@ -6,3 +6,4 @@ if len(n) == 0:
     print(None)
 else:
     print(*set(n))
+
